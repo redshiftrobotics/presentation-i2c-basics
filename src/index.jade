@@ -9,30 +9,31 @@ html
 
 	body
 
-		article
+		article.language-c
 
 			section
 				h1 I2C basics
 
 			section
-				h2 Keyboard Interaction
-				h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
+				h2 Why?
 
 			section
-				h2 Touch Interaction
-				h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
+				h2.bullet I2C: your new best friend
+				h3.bullet I2C lets you more precisely control motors and servos
+				h3.bullet It also lets you do PID, no strings attached
+				h3.bullet You essentially get precise motor motion for free.
 
 			section
-				h2 Responsive Slides
-				h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+				h2.bullet How?
+				h3.bullet Through the HiTechnic Motor Controller.
+				h3.bullet You know, that little black box between your motor and your NXT.
+				img.bullet(src='images/motorcontroller.png')
 
 			section
-				h2 Bullet List
-				h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
-				ul
-					li Bullet 1
-					li Bullet 2
-					li Bullet 3
+				h2 What?
+
+			section
+				h2 How?
 
 			section
 				h2 Syntax Highlighting
@@ -46,23 +47,5 @@ html
 							state: true,
 							bullets: 'li, .bullet'
 						});
-
-			section(data-bespoke-hash='named-route')
-				h2 Named Route
-				h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-				p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
-
-			section
-				h2.bullet Just the beginning...
-				br
-				ul
-					li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-					li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-					li Edit JavaScript in <em>'src/scripts/main.js'</em>
-				br
-				ul
-					li
-						strong Enjoy! :)
-						a(href='http://twitter.com/markdalgleish')	-@markdalgleish
 
 		script(src='build/build.js')
