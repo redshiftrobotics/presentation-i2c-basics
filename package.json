@@ -9,6 +9,7 @@
 		"bespoke-keys": "^1.0.0",
 		"bespoke-progress": "^1.0.0",
 		"bespoke-scale": "^1.0.0",
+		"bespoke-state": "^1.0.0",
 		"bespoke-theme-cube": "^1.0.0",
 		"bespoke-touch": "^1.0.0",
 		"debowerify": "^0.7.1",

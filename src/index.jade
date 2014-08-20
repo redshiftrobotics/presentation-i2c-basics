@@ -9,7 +9,7 @@ html
 
 	body
 
-		article.language-c
+		article.language-clike
 
 			section
 				h1 I2C basics
@@ -24,13 +24,92 @@ html
 				h3.bullet You essentially get precise motor motion for free.
 
 			section
-				h2.bullet How?
+				h2.bullet How does it work?
 				h3.bullet Through the HiTechnic Motor Controller.
 				h3.bullet You know, that little black box between your motor and your NXT.
 				img.bullet(src='images/motorcontroller.png')
 
 			section
+				
+
+			section
 				h2 What?
+
+			section
+				h2.bullet SAAS I2C Libraries - a tour
+				h3.bullet Hosted on <a href="https://github.com/saasrobotics/libraries.git">GitHub</a>
+				h3.bullet Embeddable in your projects via <a href="TODO">git submodules</a>
+				h3.bullet Layered
+				h3.bullet <a href="TODO">I2C.h</a> contains the base API
+				<!-- TODO: revisit this. It will probably change soon. -->
+				h3.bullet <a href="TODO">Motors.h</a> and <a href="TODO">Servos.h</a> are nice abstractions. Currently broken.
+
+			section
+				h2.bullet Let's look at the motor API
+				h3.bullet Standardized format for all functions:
+				h3.bullet
+					<!-- behold the horror. screw you, Jade. -->
+					pre
+						code.
+							void I2C_FooBar(tSensors port,
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int daisychainLevel,
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int motorNumber,
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sbyte quux)
+
+			section
+				h2.bullet Variable format
+				h3.bullet <code>FooBar</code> is the function name. These are generally pretty readable.
+				h3.bullet <code>port</code> is one of <code>S1</code>, <code>S2</code>, <code>S3</code>, or <code>S4</code>.
+				h3.bullet Daisychains start at 1, not 0.
+				h3.bullet <code>quux</code> is a function-specific value (not always used).
+				h3.bullet Internal methods are prefixed with <code>_</code>. Do not use them.
+
+			section(data-bespoke-state='emphatic')
+				h2.bullet Making a motor move
+				pre.bullet
+					code.
+						#pragma config(Sensor, S4,     ,               sensorI2CCustom)
+						while (true)
+						{
+							/* set speed of motor 2, daisychain 3 on NXT port 4 to full (100) */ 
+							I2C_SetMotorSpeed(S4, 3, 2, 100);
+						}
+
+			section
+				h2.bullet That's it.
+
+			section(data-bespoke-state='emphatic')
+				h2.bullet Encoder tricks
+				pre.bullet
+					code.
+						#pragma config(Sensor, S4,     ,               sensorI2CCustom)
+						while (true)
+						{
+							/* on motor 2, daisychain 1 on NXT port 2, move to encoder position 200 */ 
+							I2C_SetEncoderPosition(S2, 1, 2, 200);
+						}
+
+			section(data-bespoke-state='emphatic')
+				h2.bullet Moar encoder tricks: let's get fancy
+				pre.bullet
+					code.
+						#pragma config(Sensor, S4,     ,               sensorI2CCustom)
+						while (true)
+						{
+							/* set speed of motor 1, daisychain 2 on NXT port 1, 
+							move exactly a half rotation based on encoders */
+							I2C_SetEncoderPosition(S1, 2, 1,
+								I2C_GetEncoderPosition(S1, 2, 1) + 520);
+						}
+
+			section
+				h2 That's still it.
+
+			section
+				h2.bullet Debugging
+				h3.bullet Motors spinning at full speed? Check your encoders.
+				h3.bullet Motors not spinning at all? Check your ports and power.
+				h3.bullet Motors sometimes randomly spin the opposite direction? You're screwed. Don't use Motors.h or Servos.h. (Yet.)
 
 			section
 				h2 How?
