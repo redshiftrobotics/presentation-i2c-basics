@@ -167,7 +167,7 @@ writeI2C(port, I2Crequest, I2Cresponse, 4);
         <h3 class="bullet">However, this pulls in garbage on the other side</h3>
         <h3 class="bullet">You use masking to reset the garbage to all 0s</h3>
       </section>
-      <section>
+      <section data-bespoke-state="emphatic">
         <h2>Formatting for write</h2>
         <pre><code>tByteArray I2Crequest2;
 I2Crequest2[0] = 6;
@@ -184,6 +184,32 @@ writeI2C(port, I2Crequest2);
         <h2 class="bullet">Potential gotchas</h2>
         <h3 class="bullet">The order for power and mode is switched for motor 1 and motor 2</h3>
         <h3 class="bullet"><code>daisychain--</code>: this is to do some nice math instead of using an awful <code>switch</code> statement</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Contributing</h2>
+        <h3 class="bullet">Document our APIs</h3>
+        <h3 class="bullet">(We're especially interested in tutorials)</h3>
+        <h3 class="bullet">Fix <code>Motors.h</code> and <code>Servos.h</code></h3>
+        <h3 class="bullet">Write a testsuite</h3>
+        <h3 class="bullet">Use it. <a href="https://github.com/saasrobotics/Libraries/issues">File tickets</a> for any bugs, questions or feedback</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Contributing (II)</h2>
+        <h3 class="bullet">We use the GitHub Flow development methodology</h3>
+        <h3 class="bullet">Talk to me afterwards if any of these items interest you.</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Thanks!</h2>
+        <h3 class="bullet">Questions?</h3>
+        <h3 class="bullet">Email me at <a href="mailto:alexjordan@seattleacademy.org">alexjordan@seattleacademy.org</a></h3>
+        <h3 class="bullet">Open a <a href="https://github.com/saasrobotics/Libraries/issues">GitHub issue</a></h3>
+        <h3 class="bullet">Or just shout it out right now</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Access this presentation again</h2>
+        <h3 class="bullet"><a href="https://saasrobotics.com/i2c-basics">https://saasrobotics.com/i2c-basic</a></h3>
+        <h3 class="bullet"><img alt="QR Code" src="images/qr.gif"></img></h3>
+        <h3 class="bullet">...or get the <a href="https://github.com/saasrobotics/i2c-basics">source code</a></h3>
       </section>
     </article>
     <script src="build/build.js"></script>
