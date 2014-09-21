@@ -35,7 +35,7 @@
         <h3 class="bullet">Embeddable in your projects via <a href="https://github.com/saasrobotics/Libraries/wiki/Adding-the-SAAS-libraries-to-your-repository">git submodules</a> - or plain old copy and paste, if not using git</h3>
         <h3 class="bullet">Layered architecture</h3>
         <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/I2C.h">I2C.h</a> contains the base API</h3><!-- TODO: revisit this. It will probably change soon. -->
-        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/Motors.h">Motors.h</a> and <a href="https://github.com/saasrobotics/Libraries/blob/master/Servos.h">Servos.h</a> are nice abstractions that work at the layer above <code>I2C.h</code>. Currently broken.</h3>
+        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/Motors.h">Motors.h</a> and <a href="https://github.com/saasrobotics/Libraries/blob/master/Servos.h">Servos.h</a> are nice abstractions that work at the layer above <code>I2C.h</code>.</h3>
       </section>
       <section>
         <h2 class="bullet">Let's look at the motor API</h2>
@@ -100,7 +100,7 @@ while (true)
         <h2 class="bullet">Debugging</h2>
         <h3 class="bullet">Motors spinning at full speed? Check your encoders.</h3>
         <h3 class="bullet">Motors not spinning at all? Check your ports and power.</h3>
-        <h3 class="bullet">Motors sometimes randomly spin the opposite direction? You're screwed. Don't use Motors.h or Servos.h. (Yet.)</h3>
+        <h3 class="bullet">Getting "3rd party driver error"? Make sure your port is set to "I2CCustom" in Motors & Sensors Setup.</h3>
       </section>
       <section>
         <h2>How?</h2>
@@ -200,7 +200,7 @@ writeI2C(port, I2Crequest2);
         <h2 class="bullet">Contributing</h2>
         <h3 class="bullet">Document our APIs</h3>
         <h3 class="bullet">(We're especially interested in tutorials)</h3>
-        <h3 class="bullet">Fix <code>Motors.h</code> and <code>Servos.h</code></h3>
+        <h3 class="bullet">Make <code>Motors.h</code> and <code>Servos.h</code> not use the no timeout bit</h3>
         <h3 class="bullet">Write a testsuite</h3>
         <h3 class="bullet">Use it. <a href="https://github.com/saasrobotics/Libraries/issues">File tickets</a> for any bugs, questions or feedback</h3>
       </section>
