@@ -34,8 +34,9 @@
         <h3 class="bullet">Hosted on <a href="https://github.com/saasrobotics/libraries.git">GitHub</a></h3>
         <h3 class="bullet">Embeddable in your projects via <a href="https://github.com/saasrobotics/Libraries/wiki/Adding-the-SAAS-libraries-to-your-repository">git submodules</a> - or plain old copy and paste, if not using git</h3>
         <h3 class="bullet">Layered architecture</h3>
-        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/I2C.h">I2C.h</a> contains the base API</h3><!-- TODO: revisit this. It will probably change soon. -->
-        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/Motors.h">Motors.h</a> and <a href="https://github.com/saasrobotics/Libraries/blob/master/Servos.h">Servos.h</a> are nice abstractions that work at the layer above <code>I2C.h</code>.</h3>
+        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/I2C.h">I2C.h</a> contains the base API</h3>
+        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/Motors.h">Motors.h</a> and <a href="https://github.com/saasrobotics/Libraries/blob/master/Servos.h">Servos.h</a> are nice abstractions that work at the layer above I2C.h.</h3>
+        <h3 class="bullet">Generally, you should use these. We'll look at I2C.h, though, because it's the most interesting.</h3>
       </section>
       <section>
         <h2 class="bullet">Let's look at the motor API</h2>
@@ -110,6 +111,9 @@ while (true)
         <h3 class="bullet">Every request is an array of bytes: a <code>tByteArray</code></h3>
         <h3 class="bullet">Byte #1 specifies how many bytes will follow in the request (for a request of length <em>n</em> bytes byte #1 will be <em>n-1</em>). Required.</h3>
         <h3 class="bullet">Byte #2 specifies the address of the I2C device on the bus. Daisychain 1 is <code>0x02</code>, daisychain 2 is <code>0x04</code>, etc. Required.</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Anatomy of an I2C write (II)</h2>
         <h3 class="bullet">Byte #3 specifies the address on the motor controller register. Required.</h3>
         <h3 class="bullet">Byte #4 and above states the data to write to the register address. At least one required for a write.</h3>
       </section>
@@ -118,6 +122,7 @@ while (true)
         <h3 class="bullet">A register address is basically a numbered slot in the motor controller that you can put data into</h3>
         <h3 class="bullet">If this still doesn't make sense to you, that's fine</h3>
         <h3 class="bullet">Just know that byte #3 is a magic number that determines what byte #4 means.</h3><img height="127" width="355" src="images/registertable.jpg" alt="Register address table screenshot" class="bullet">
+        <h3 class="bullet">(<a href="https://duckduckgo.com/l/?kh=-1&uddg=https%3A%2F%2Fstuyfissionfusiondevelopment.googlecode.com%2Ffiles%2FHiTechnic%2520Motor%2520Controller%2520Brief%2520v1.3.pdf">Table source</a>)</h3>
       </section>
       <section data-bespoke-state="emphatic">
         <h2 class="bullet">Setting motor speed</h2>
@@ -166,18 +171,14 @@ writeI2C(port, I2Crequest, I2Cresponse, 4);
         <h3 class="bullet">You can't just send a <code>long</code> or an <code>int</code></h3>
         <h3 class="bullet">You have to break it up into individual bytes</h3>
         <h3 class="bullet">You do this with bitshifting and masking</h3>
-        <h3 class="bullet">I'll skip over these, since they're kind of boring.</h3>
       </section>
-      <!-- TODO: uncomment this after the presentation is over-->
-      <!--
-      section
-       h2.bullet Bitshifting & masking
-       h3.bullet In a memory buffer, bitshifting shifts a certain number of bits to either the left or the right
-       h3.bullet Essentially, it truncates either the left or the right
-       h3.bullet However, this pulls in garbage on the other side
-       h3.bullet You use masking to reset the garbage to all 0s
-       
-      -->
+      <section>
+        <h2 class="bullet">Bitshifting & masking</h2>
+        <h3 class="bullet">In a memory buffer, bitshifting shifts a certain number of bits to either the left or the right</h3>
+        <h3 class="bullet">Essentially, it truncates either the left or the right</h3>
+        <h3 class="bullet">However, this pulls in garbage on the other side</h3>
+        <h3 class="bullet">You use masking to reset the garbage to all 0s</h3>
+      </section>
       <section data-bespoke-state="emphatic">
         <h2>Formatting for write</h2>
         <pre><code>tByteArray I2Crequest2;
@@ -207,12 +208,12 @@ writeI2C(port, I2Crequest2);
       <section>
         <h2 class="bullet">Contributing (II)</h2>
         <h3 class="bullet">We use the <a href="http://scottchacon.com/2011/08/31/github-flow.html">GitHub Flow</a> development methodology</h3>
-        <h3 class="bullet">Talk to me afterwards if any of these items interest you.x</h3>
+        <h3 class="bullet">Talk to me afterwards if any of these items interest you.</h3>
       </section>
       <section>
         <h2 class="bullet">Access this presentation again</h2>
-        <h3 class="bullet"><a href="https://saasrobotics.com/i2c-basics">https://saasrobotics.com/i2c-basic</a></h3>
-        <h3 class="bullet"><img alt="QR Code" src="images/qr.gif"></img></h3>
+        <h3 class="bullet"><a href="http://saasrobotics.com/i2c-basics">http://saasrobotics.com/i2c-basic</a></h3>
+        <h3 class="bullet"><img alt="QR Code" src="images/qr.gif" /></h3>
         <h3 class="bullet">...or get the <a href="https://github.com/saasrobotics/i2c-basics">source code</a></h3>
       </section>
       <section>
@@ -220,7 +221,7 @@ writeI2C(port, I2Crequest2);
         <h3 class="bullet">Questions?</h3>
         <h3 class="bullet">Email me at <a href="mailto:alexjordan@seattleacademy.org">alexjordan@seattleacademy.org</a></h3>
         <h3 class="bullet">Open a <a href="https://github.com/saasrobotics/Libraries/issues">GitHub issue</a></h3>
-        <h3 class="bullet">Or just shout it out right now</h3>
+        <h3 class="bullet"><del>Or just shout it out right now</del></h3>
       </section>
     </article>
     <script src="build/build.js"></script>
