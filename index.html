@@ -16,15 +16,14 @@
       </section>
       <section>
         <h2 class="bullet">I2C: your new best friend</h2>
+        <h3 class="bullet">I2C lets you more precisely control motors and servos</h3>
+        <h3 class="bullet">It also lets you do PID, no strings attached</h3>
         <h3 class="bullet">You essentially get precise motor motion for free.</h3>
-        <h3 class="bullet">This is because I2C lets you do PID, no strings attached</h3>
-        <h3 class="bullet">You can't get this kind of PID with RobotC.</h3>
       </section>
       <section>
         <h2 class="bullet">How does it work?</h2>
         <h3 class="bullet">Through the HiTechnic Motor Controller.</h3>
         <h3 class="bullet">You know, that little black box between your motor and your NXT.</h3><img src="images/motorcontroller.png" class="bullet">
-        <h3 class="bullet">It also requires encoders (important!)</h3>
       </section>
       <section>
         <h2>What?</h2>
@@ -32,11 +31,10 @@
       <section>
         <h2 class="bullet">SAAS I2C Libraries - a tour</h2>
         <h3 class="bullet">Hosted on <a href="https://github.com/saasrobotics/libraries.git">GitHub</a></h3>
-        <h3 class="bullet">Embeddable in your projects via <a href="https://github.com/saasrobotics/Libraries/wiki/Adding-the-SAAS-libraries-to-your-repository">git submodules</a> - or plain old copy and paste, if not using git</h3>
+        <h3 class="bullet">Embeddable in your projects via <a href="TODO">git submodules</a> - or plain old copy and paste, if not using git</h3>
         <h3 class="bullet">Layered architecture</h3>
-        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/I2C.h">I2C.h</a> contains the base API</h3>
-        <h3 class="bullet"><a href="https://github.com/saasrobotics/Libraries/blob/master/Motors.h">Motors.h</a> and <a href="https://github.com/saasrobotics/Libraries/blob/master/Servos.h">Servos.h</a> are nice abstractions that work at the layer above I2C.h.</h3>
-        <h3 class="bullet">Generally, you should use these. We'll look at I2C.h, though, because it's the most interesting.</h3>
+        <h3 class="bullet"><a href="TODO">I2C.h</a> contains the base API</h3><!-- TODO: revisit this. It will probably change soon. -->
+        <h3 class="bullet"><a href="TODO">Motors.h</a> and <a href="TODO">Servos.h</a> are nice abstractions that work at the layer above <code>I2C.h</code>. Currently broken.</h3>
       </section>
       <section>
         <h2 class="bullet">Let's look at the motor API</h2>
@@ -45,7 +43,7 @@
           <pre><code>void I2C_FooBar(tSensors port,
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int daisychainLevel,
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int motorNumber,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sbyte optional)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sbyte quux)
 </code></pre>
         </h3>
       </section>
@@ -54,7 +52,7 @@
         <h3 class="bullet"><code>FooBar</code> is the function name. These are generally pretty readable.</h3>
         <h3 class="bullet"><code>port</code> is one of <code>S1</code>, <code>S2</code>, <code>S3</code>, or <code>S4</code>.</h3>
         <h3 class="bullet">Daisychains start at 1, not 0.</h3>
-        <h3 class="bullet"><code>optional</code> is a function-specific value (not always used).</h3>
+        <h3 class="bullet"><code>quux</code> is a function-specific value (not always used).</h3>
         <h3 class="bullet">Internal methods are prefixed with <code>_</code>. Do not use them.</h3>
       </section>
       <section data-bespoke-state="emphatic">
@@ -101,7 +99,7 @@ while (true)
         <h2 class="bullet">Debugging</h2>
         <h3 class="bullet">Motors spinning at full speed? Check your encoders.</h3>
         <h3 class="bullet">Motors not spinning at all? Check your ports and power.</h3>
-        <h3 class="bullet">Getting "3rd party driver error"? Make sure your port is set to "I2CCustom" in Motors & Sensors Setup.</h3>
+        <h3 class="bullet">Motors sometimes randomly spin the opposite direction? You're screwed. Don't use Motors.h or Servos.h. (Yet.)</h3>
       </section>
       <section>
         <h2>How?</h2>
@@ -111,18 +109,8 @@ while (true)
         <h3 class="bullet">Every request is an array of bytes: a <code>tByteArray</code></h3>
         <h3 class="bullet">Byte #1 specifies how many bytes will follow in the request (for a request of length <em>n</em> bytes byte #1 will be <em>n-1</em>). Required.</h3>
         <h3 class="bullet">Byte #2 specifies the address of the I2C device on the bus. Daisychain 1 is <code>0x02</code>, daisychain 2 is <code>0x04</code>, etc. Required.</h3>
-      </section>
-      <section>
-        <h2 class="bullet">Anatomy of an I2C write (II)</h2>
         <h3 class="bullet">Byte #3 specifies the address on the motor controller register. Required.</h3>
         <h3 class="bullet">Byte #4 and above states the data to write to the register address. At least one required for a write.</h3>
-      </section>
-      <section>
-        <h2 class="bullet">Byte #3</h2>
-        <h3 class="bullet">A register address is basically a numbered slot in the motor controller that you can put data into</h3>
-        <h3 class="bullet">If this still doesn't make sense to you, that's fine</h3>
-        <h3 class="bullet">Just know that byte #3 is a magic number that determines what byte #4 means.</h3><img height="127" width="355" src="images/registertable.jpg" alt="Register address table screenshot" class="bullet">
-        <h3 class="bullet">(<a href="https://duckduckgo.com/l/?kh=-1&uddg=https%3A%2F%2Fstuyfissionfusiondevelopment.googlecode.com%2Ffiles%2FHiTechnic%2520Motor%2520Controller%2520Brief%2520v1.3.pdf">Table source</a>)</h3>
       </section>
       <section data-bespoke-state="emphatic">
         <h2 class="bullet">Setting motor speed</h2>
@@ -145,7 +133,7 @@ writeI2C(port, I2Crequest);
       <section>
         <h2 class="bullet">Doing a read</h2>
         <h3 class="bullet">Just like doing a write, except that you don't pass any data in byte(s) 4+</h3>
-        <h3 class="bullet">Instead, you pass (as arguments to <code>writeI2C()</code>) a reference to a variable which data will be stored in</h3>
+        <h3 class="bullet">Instead, you pass (as arguments to <code>writeI2C()</code> a memory buffer to write a response to, and the length of the response</h3>
       </section>
       <section data-bespoke-state="emphatic">
         <h2>Talk is cheap; show me the code!</h2>
@@ -173,13 +161,13 @@ writeI2C(port, I2Crequest, I2Cresponse, 4);
         <h3 class="bullet">You do this with bitshifting and masking</h3>
       </section>
       <section>
-        <h2 class="bullet">Bitshifting & masking</h2>
+        <h2 class="bullet">Bitshifting</h2>
         <h3 class="bullet">In a memory buffer, bitshifting shifts a certain number of bits to either the left or the right</h3>
         <h3 class="bullet">Essentially, it truncates either the left or the right</h3>
         <h3 class="bullet">However, this pulls in garbage on the other side</h3>
         <h3 class="bullet">You use masking to reset the garbage to all 0s</h3>
       </section>
-      <section data-bespoke-state="emphatic">
+      <section>
         <h2>Formatting for write</h2>
         <pre><code>tByteArray I2Crequest2;
 I2Crequest2[0] = 6;
@@ -196,32 +184,6 @@ writeI2C(port, I2Crequest2);
         <h2 class="bullet">Potential gotchas</h2>
         <h3 class="bullet">The order for power and mode is switched for motor 1 and motor 2</h3>
         <h3 class="bullet"><code>daisychain--</code>: this is to do some nice math instead of using an awful <code>switch</code> statement</h3>
-      </section>
-      <section>
-        <h2 class="bullet">Contributing</h2>
-        <h3 class="bullet">Document our APIs</h3>
-        <h3 class="bullet">(We're especially interested in tutorials)</h3>
-        <h3 class="bullet">Make <code>Motors.h</code> and <code>Servos.h</code> not use the no timeout bit</h3>
-        <h3 class="bullet">Write a testsuite</h3>
-        <h3 class="bullet">Use it. <a href="https://github.com/saasrobotics/Libraries/issues">File tickets</a> for any bugs, questions or feedback</h3>
-      </section>
-      <section>
-        <h2 class="bullet">Contributing (II)</h2>
-        <h3 class="bullet">We use the <a href="http://scottchacon.com/2011/08/31/github-flow.html">GitHub Flow</a> development methodology</h3>
-        <h3 class="bullet">Talk to me afterwards if any of these items interest you.</h3>
-      </section>
-      <section>
-        <h2 class="bullet">Access this presentation again</h2>
-        <h3 class="bullet"><a href="http://saasrobotics.com/i2c-basics">http://saasrobotics.com/i2c-basics</a></h3>
-        <h3 class="bullet"><img alt="QR Code" src="images/qr.gif" /></h3>
-        <h3 class="bullet">...or get the <a href="https://github.com/saasrobotics/i2c-basics">source code</a></h3>
-      </section>
-      <section>
-        <h2 class="bullet">Thanks!</h2>
-        <h3 class="bullet">Questions?</h3>
-        <h3 class="bullet">Email me at <a href="mailto:alexjordan@seattleacademy.org">alexjordan@seattleacademy.org</a></h3>
-        <h3 class="bullet">Open a <a href="https://github.com/saasrobotics/Libraries/issues">GitHub issue</a></h3>
-        <h3 class="bullet"><del>Or just shout it out right now</del></h3>
       </section>
     </article>
     <script src="build/build.js"></script>
